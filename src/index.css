@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl font-bold text-sky-500;
+  }
+  h2 {
+    @apply text-2xl font-bold text-sky-500;
+  }
+  select {
+    @apply h-10 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 outline-none;
+  }
+}
+
+@layer components {
+  /* Inputs */
+  .input-sky {
+    @apply border rounded-md p-2 focus:outline-none focus:border-sky-500 w-full;
+  }
+  .input-rose {
+    @apply border border-rose-500 rounded-md p-2 focus:outline-none focus:border-rose-500 w-full;
+  }
+
+  /* Buttons */
+  .btn-sky {
+    @apply bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded cursor-pointer;
+  }
+  .btn-rose {
+    @apply bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded;
+  }
+  .btn-disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Badges */
+  .badge-green {
+    @apply bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded;
+  }
+  .badge-indigo {
+    @apply bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded;
+  }
+  .badge-yellow {
+    @apply bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded;
+  }
+
+  /* Pagination */
+  .pagination-btn-next {
+    @apply flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700;
+  }
+  .pagination-btn-previous {
+    @apply flex items-center justify-center px-3 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700;
+  }
+  .pagination-item {
+    @apply flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700;
+  }
+  .pagination-item-selected {
+    @apply flex items-center justify-center px-3 h-10 text-sky-600 border border-gray-300 bg-sky-50 hover:bg-sky-100 hover:text-sky-700;
+  }
+}
