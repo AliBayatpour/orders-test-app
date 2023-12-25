@@ -53,7 +53,7 @@ const AddOrderModal: React.FC<Props> = ({ onCloseModal }) => {
       id: orderForm.id.value,
       total: orderForm.total.value,
       quantity: orderForm.quantity.value,
-      status: orderForm.status.value["value"],
+      status: orderForm.status.value["value"] as Order["status"],
       date: orderForm.date.value.toISOString().slice(0, 10),
     };
     dispatch(
