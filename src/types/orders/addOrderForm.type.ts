@@ -6,5 +6,5 @@ export type AddOrderForm = {
   total: { value: string; error: string };
   quantity: { value: string; error: string };
   date: { value: Date; error: string };
-  status: { value: SelectOption<Order["status"]>; error: string };
+  status: { value: SelectOption; error: string };
 };
