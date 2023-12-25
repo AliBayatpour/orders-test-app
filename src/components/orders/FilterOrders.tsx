@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
+import colors from "tailwindcss/colors";
+import Plus from "../../assets/svgs/Plus";
 import { selectCurrentOrders } from "../../store/orders/orders.selector";
 import { ordersActions } from "../../store/orders/orders.slice";
 import { AppDispatch } from "../../store/store";
@@ -28,7 +30,7 @@ const FilterOrders: React.FC<Props> = ({ onShowAddOrderModal }) => {
           />
         </div>
         <button className="btn-sky" onClick={onShowAddOrderModal}>
-          Add
+          <Plus fill={colors.white} />
         </button>
       </div>
     </div>

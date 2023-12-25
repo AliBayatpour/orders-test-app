@@ -1,4 +1,4 @@
-import { OrderStatus } from "../../enums/orderStatus";
+import { OrderStatus } from "../../enums/Orders/orderStatus.enum";
 
 export type Order = {
   id: string;

@@ -1,5 +1,5 @@
 import React from "react";
-import { OrderStatus } from "../../enums/orderStatus";
+import { OrderStatus } from "../../enums/Orders/orderStatus.enum";
 import { Order as OrderType } from "../../types/orders/order.type";
 
 type Props = {

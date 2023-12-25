@@ -1,19 +1,35 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { paginatorOptions } from "../../constants/shared/paginator.constants";
+import { SortDirection } from "../../enums/shared/sortDirection.enum";
 import {
   selectFilteredOrders,
   selectFilteredOrdersLength,
 } from "../../store/orders/orders.selector";
+import { ordersActions } from "../../store/orders/orders.slice";
+import { AppDispatch } from "../../store/store";
+import { Order as OrderType } from "../../types/orders/order.type";
+import { ListColumn } from "../../types/shared/ListColumn.type";
+import {
+  initialListHeaderColumns,
+  sortOrders,
+} from "../../utils/orders/filterOrders.utils";
+import ListHeader from "../shared/ListHeader";
 import Paginator from "../shared/Paginator";
 import Order from "./Order";
 
 const Orders = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const filteredOrders = useSelector(selectFilteredOrders);
   const filteredOrdersLength = useSelector(selectFilteredOrdersLength);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(
     +paginatorOptions[0].value,
+  );
+
+  const [listColumns, setListColumns] = useState<ListColumn<keyof OrderType>[]>(
+    initialListHeaderColumns(),
   );
 
   const stringFilteredOrders = filteredOrders.toString();
@@ -22,11 +38,27 @@ const Orders = () => {
     setCurrentPage(1);
   }, [stringFilteredOrders]);
 
-  // Calculate the start and end indices for the current page
+  const onSortChange = (column: ListColumn<keyof OrderType>) => {
+    const tempListHeader = initialListHeaderColumns();
+    const idx = tempListHeader.findIndex((col) => col.key === column.key);
+    tempListHeader[idx] = {
+      ...tempListHeader[idx],
+      sortDirection:
+        column.sortDirection === SortDirection.ASC
+          ? SortDirection.DESC
+          : SortDirection.ASC,
+    };
+    setListColumns(tempListHeader);
+    const sortedOrders = sortOrders(
+      filteredOrders,
+      column.key,
+      tempListHeader[idx].sortDirection,
+    );
+    dispatch(ordersActions.setFilteredOrders(sortedOrders));
+  };
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  // Filter orders based on the current page and items per page
   const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
 
   return (
@@ -34,13 +66,7 @@ const Orders = () => {
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr className="text-left">
-              <th className="py-2 px-4 border-b">Order ID</th>
-              <th className="py-2 px-4 border-b">Order date</th>
-              <th className="py-2 px-4 border-b">Order total</th>
-              <th className="py-2 px-4 border-b">Quantity</th>
-              <th className="py-2 px-4 border-b">Status</th>
-            </tr>
+            <ListHeader listColumns={listColumns} onSortChange={onSortChange} />
           </thead>
           <tbody>
             {paginatedOrders.map((order) => (
